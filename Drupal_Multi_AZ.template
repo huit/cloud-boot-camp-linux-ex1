@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "AWS CloudFormation Sample Template Drupal_Multi_AZ. Drupal is an open source content management platform powering millions of websites and applications. This template installs a highly-available, scalable Drupal deployment using a multi-az Amazon RDS database instance for storage. It uses the AWS CloudFormation bootstrap scripts to install packages and files at instance launch time. **WARNING** This template creates one or more Amazon EC2 instances, an Elastic Load Balancer and an Amazon RDS database. You will be billed for the AWS resources used if you create a stack from this template.",
+  "Description" : "AWS CloudFormation Template HPACDrupalStack. Multi AZ, Drupal installation",
 
   "Parameters" : {
 
