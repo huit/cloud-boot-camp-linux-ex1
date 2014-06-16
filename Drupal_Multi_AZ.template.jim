@@ -1,13 +1,17 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "AWS CloudFormation Template HPACDrupalStack. Multi AZ, Drupal installation",
+  "Description" : "AWS CloudFormation Sample Template Drupal_Multi_AZ. Drupal is an open source content management platform powering millions of websites and applications. This template installs a highly-available, scalable Drupal deployment using a multi-az Amazon RDS database instance for storage. It uses the AWS CloudFormation bootstrap scripts to install packages and files at instance launch time. **WARNING** This template creates one or more Amazon EC2 instances, an Elastic Load Balancer and an Amazon RDS database. You will be billed for the AWS resources used if you create a stack from this template.",
 
   "Parameters" : {
 
     "KeyName": {
       "Description" : "HPAC EC2 KeyPair to enable SSH access to the instances",
-      "Default" : "HPACDrupalKeyPair",
+ 
+  "Type" : "AWS::RDS::DBInstance",
+  "Properties" : {
+    "DBName" : { "Ref" : "DBName" },
+    "Default" : "HPACDrupalKeyPair",
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "255",
@@ -215,7 +219,7 @@
         "Comment" : "Configure the Load Balancer with a simple health check and cookie-based stickiness"
       },
       "Properties" : {
-        "AvailabilityZones" :  [ "us-east-1a","us-east-1d" ],
+        "AvailabilityZones" : { "Fn::GetAZs" : "" },
         "LBCookieStickinessPolicy" : [ {
           "PolicyName" : "CookieBasedPolicy",
           "CookieExpirationPeriod" : "30"
@@ -239,12 +243,13 @@
     "WebServerGroup" : {
       "Type" : "AWS::AutoScaling::AutoScalingGroup",
       "Properties" : {
-        "AvailabilityZones" :  [ "us-east-1a","us-east-1d" ],
+        "AvailabilityZones" : { "Fn::GetAZs" : "" },
         "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
         "MinSize" : "1",
         "MaxSize" : "5",
         "DesiredCapacity" : { "Ref" : "WebServerCapacity" },
         "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ]
+        "Tags" : [{ "Key" : "Name", "Value" : "JHDrupalInstance" }]
       }
     },
 
@@ -415,18 +420,26 @@
       }
     },
 
-    "DBInstance" : {
-      "Type": "AWS::RDS::DBInstance",
-      "Properties": {
-        "DBName"            : { "Ref" : "DBName" },
-        "Engine"            : "MySQL",
-        "MultiAZ"           : { "Ref": "MultiAZDatabase" },
-        "MasterUsername"    : { "Ref" : "DBUsername" },
-        "DBInstanceClass"   : { "Ref" : "DBClass" },
-        "DBSecurityGroups"  : [{ "Ref" : "DBSecurityGroup" }],
-        "AllocatedStorage"  : { "Ref" : "DBAllocatedStorage" },
-        "MasterUserPassword": { "Ref" : "DBPassword" }
-      }
+    "MasterDB" : {
+      "Type"                 : "AWS::RDS::DBInstance",
+      "Properties"           : {
+        "DBName"             : { "Ref" : "DBName" },
+        "DBAllocatedStorage" : { "Ref" : "DBAllocatedStorage" },
+        "DBInstanceClass"    : { "Ref" : "DBClass" },
+        "Engine"             : "MySQL",
+        "DBSecurityGroups"   : [{ "Ref" : "DBSecurityGroup" }],
+        "MasterUsername:     : { "Ref" : "DBUsername" },
+        "MasterUserPassword  : { "Ref" : "DBPassword" },
+        "MultiAZ"            : { "Ref" : "MultiAZDatabase" },
+        "Tags"               : [{ "Key" : "Name", "Value" : "Jim' Master Database" }]
+    },
+
+    "ReplicaDB" : {
+      "Type"                         : "AWS::RDS::DBInstance",
+      "Properties"                   : {
+        "SourceDBInstanceIdentifier" : { "Ref" : "MasterDB" },
+        "DBInstanceClass"            : { "Ref" : "DBInstnaceClass" },
+        "Tags" : [{ "Key" : "Name", "Value" : "Jim's Read Replica Database" }]
     },
 
     "DBSecurityGroup": {
@@ -454,5 +467,25 @@
       "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]] },
       "Description" : "Drupal Website"
     }
-  }
+  },
+
+    "MasterJDBCConnectionString": {
+      "Value" : { "Fn::Join": [ "", [ jdbc:mysql://",
+                                      { "Fn::GetAtt": [ "MasterDB", "Endpoint.Address" ] },
+                                      ":",
+                                      { "Fn::GetATT": [ "MasterDB", "Endpoint.Port" ] },
+                                      "/",
+                                      { "Ref" : "DBName" }]]}
+      "Description" : "JDBC Connection String for Jim's Master Database"
+      },
+    
+    "ReplicaJDBCConnectionString": {
+      "Value" : { "Fn::Join": [ "", [ jdbc:mysql://",
+                                      { "Fn::GetAtt": [ "ReplicaDB", "Endpoint.Address" ] },
+                                      ":",
+                                      { "Fn::GetATT": [ "ReplicaDB", "Endpoint.Port" ] },
+                                      "/",
+                                      { "Ref" : "DBName" }]]}
+      "Description" : "JDBC Connection String for Jim's Replica Database"
+      },
 }
