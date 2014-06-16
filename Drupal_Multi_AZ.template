@@ -12,7 +12,7 @@
       "MinLength": "1",
       "MaxLength": "255",
       "AllowedPattern" : "[\\x20-\\x7E]*",
-      "ConstraintDscription" : "can contain only ASCII characters."
+      "ConstraintDescription" : "can contain only ASCII characters."
     },
 
     "InstanceType" : {
@@ -24,7 +24,7 @@
 
     "SiteName": {
       "Default": "HPACDrupal",
-      "Description" : "HPAC Drupal Web Site" 
+      "Description" : "HPAC Drupal Web Site", 
       "Type": "String"
     },
 
@@ -411,7 +411,7 @@
       "DependsOn" : "WebServerGroup",
       "Properties" : {
         "Handle" : {"Ref" : "WaitHandle"},
-        "Timeout" : "600"
+        "Timeout" : "3000"
       }
     },
 
