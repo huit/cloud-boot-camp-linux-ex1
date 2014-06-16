@@ -7,11 +7,7 @@
 
     "KeyName": {
       "Description" : "HPAC EC2 KeyPair to enable SSH access to the instances",
- 
-  "Type" : "AWS::RDS::DBInstance",
-  "Properties" : {
-    "DBName" : { "Ref" : "DBName" },
-    "Default" : "HPACDrupalKeyPair",
+      "Default" : "HPACDrupalKeyPair",
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "255",
@@ -248,7 +244,7 @@
         "MinSize" : "1",
         "MaxSize" : "5",
         "DesiredCapacity" : { "Ref" : "WebServerCapacity" },
-        "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ]
+        "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ],
         "Tags" : [{ "Key" : "Name", "Value" : "JHDrupalInstance" }]
       }
     },
@@ -307,8 +303,8 @@
                   "      'database' => '", { "Ref" : "DBName" }, "',\n",
                   "      'username' => '", { "Ref" : "DBUsername" }, "',\n",
                   "      'password' => '", { "Ref" : "DBPassword" }, "',\n",
-                  "      'host' => '", {"Fn::GetAtt" : ["DBInstance", "Endpoint.Address"]}, "',\n",
-                  "      'port' => '", {"Fn::GetAtt" : ["DBInstance", "Endpoint.Port"]}, "',\n",
+                  "      'host' => '", {"Fn::GetAtt" : ["MasterDB", "Endpoint.Address"]}, "',\n",
+                  "      'port' => '", {"Fn::GetAtt" : ["MasterDB", "Endpoint.Port"]}, "',\n",
                   "      'driver' => 'mysql',\n",
                   "      'prefix' => 'drupal_',\n",
                   "    ),\n",
@@ -390,7 +386,7 @@
           "  ~ec2-user/drush/drush site-install standard --yes",
           "     --site-name='", { "Ref" : "SiteName" }, "' --site-mail=", { "Ref" : "SiteEMail" },
           "     --account-name=", { "Ref" : "SiteAdmin" }, " --account-pass=", { "Ref" : "SitePassword" },
-          "     --db-url=mysql://", { "Ref" : "DBUsername" }, ":", { "Ref" : "DBPassword" }, "@", {"Fn::GetAtt" : ["DBInstance", "Endpoint.Address"]}, ":", {"Fn::GetAtt" : ["DBInstance", "Endpoint.Port"]}, "/", { "Ref" : "DBName" },
+          "     --db-url=mysql://", { "Ref" : "DBUsername" }, ":", { "Ref" : "DBPassword" }, "@", {"Fn::GetAtt" : ["MasterDB", "Endpoint.Address"]}, ":", {"Fn::GetAtt" : ["MasterDB", "Endpoint.Port"]}, "/", { "Ref" : "DBName" },
           "     --db-prefix=drupal_\n",
           "  # use the S3 bucket for shared file storage\n",
           "  cp -R sites/default/files_original/* sites/default/files\n",
@@ -428,18 +424,20 @@
         "DBInstanceClass"    : { "Ref" : "DBClass" },
         "Engine"             : "MySQL",
         "DBSecurityGroups"   : [{ "Ref" : "DBSecurityGroup" }],
-        "MasterUsername:     : { "Ref" : "DBUsername" },
-        "MasterUserPassword  : { "Ref" : "DBPassword" },
+        "MasterUsername"     : { "Ref" : "DBUsername" },
+        "MasterUserPassword" : { "Ref" : "DBPassword" },
         "MultiAZ"            : { "Ref" : "MultiAZDatabase" },
-        "Tags"               : [{ "Key" : "Name", "Value" : "Jim' Master Database" }]
+        "Tags"               : [{ "Key" : "Name", "Value" : "Jims Master Database" }]
+      }
     },
 
     "ReplicaDB" : {
       "Type"                         : "AWS::RDS::DBInstance",
       "Properties"                   : {
         "SourceDBInstanceIdentifier" : { "Ref" : "MasterDB" },
-        "DBInstanceClass"            : { "Ref" : "DBInstnaceClass" },
-        "Tags" : [{ "Key" : "Name", "Value" : "Jim's Read Replica Database" }]
+        "DBInstanceClass"            : { "Ref" : "DBClass" },
+        "Tags" : [{ "Key" : "Name", "Value" : "Jims Read Replica Database" }]
+      }
     },
 
     "DBSecurityGroup": {
@@ -466,26 +464,26 @@
     "WebsiteURL" : {
       "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]] },
       "Description" : "Drupal Website"
-    }
-  },
+    },
 
     "MasterJDBCConnectionString": {
-      "Value" : { "Fn::Join": [ "", [ jdbc:mysql://",
+      "Description" : "JDBC Connection String for Jims Master Database",
+      "Value" : { "Fn::Join": [ "", [ "jdbc:mysql://",
                                       { "Fn::GetAtt": [ "MasterDB", "Endpoint.Address" ] },
                                       ":",
-                                      { "Fn::GetATT": [ "MasterDB", "Endpoint.Port" ] },
+                                      { "Fn::GetAtt": [ "MasterDB", "Endpoint.Port" ] },
                                       "/",
                                       { "Ref" : "DBName" }]]}
-      "Description" : "JDBC Connection String for Jim's Master Database"
       },
     
     "ReplicaJDBCConnectionString": {
-      "Value" : { "Fn::Join": [ "", [ jdbc:mysql://",
+      "Description" : "JDBC Connection String for Jims Replica Database",
+      "Value" : { "Fn::Join": [ "", [ "jdbc:mysql://",
                                       { "Fn::GetAtt": [ "ReplicaDB", "Endpoint.Address" ] },
                                       ":",
-                                      { "Fn::GetATT": [ "ReplicaDB", "Endpoint.Port" ] },
+                                      { "Fn::GetAtt": [ "ReplicaDB", "Endpoint.Port" ] },
                                       "/",
                                       { "Ref" : "DBName" }]]}
-      "Description" : "JDBC Connection String for Jim's Replica Database"
-      },
+    }
+  }
 }
