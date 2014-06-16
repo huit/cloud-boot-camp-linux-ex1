@@ -215,7 +215,7 @@
         "Comment" : "Configure the Load Balancer with a simple health check and cookie-based stickiness"
       },
       "Properties" : {
-        "AvailabilityZones" : { "Fn::GetAZs" : "" },
+        "AvailabilityZones" :  [ "us-east-1a","us-east-1d" ],
         "LBCookieStickinessPolicy" : [ {
           "PolicyName" : "CookieBasedPolicy",
           "CookieExpirationPeriod" : "30"
@@ -239,7 +239,7 @@
     "WebServerGroup" : {
       "Type" : "AWS::AutoScaling::AutoScalingGroup",
       "Properties" : {
-        "AvailabilityZones" : { "Fn::GetAZs" : "" },
+        "AvailabilityZones" :  [ "us-east-1a","us-east-1d" ],
         "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
         "MinSize" : "1",
         "MaxSize" : "5",
