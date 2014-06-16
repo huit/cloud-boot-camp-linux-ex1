@@ -420,7 +420,7 @@
       "Type"                 : "AWS::RDS::DBInstance",
       "Properties"           : {
         "DBName"             : { "Ref" : "DBName" },
-        "DBAllocatedStorage" : { "Ref" : "DBAllocatedStorage" },
+        "AllocatedStorage" : { "Ref" : "DBAllocatedStorage" },
         "DBInstanceClass"    : { "Ref" : "DBClass" },
         "Engine"             : "MySQL",
         "DBSecurityGroups"   : [{ "Ref" : "DBSecurityGroup" }],
