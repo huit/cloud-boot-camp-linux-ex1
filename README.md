@@ -1,6 +1,8 @@
-cloud-boot-camp-linux-ex1
+Cloud-Boot-Camp-exercise 1 README File
 =========================
 
-This is not much of a readme!
+Exercise 1 Requirements: https://github.com/huit/cloud-boot-camp/wiki/Deploying-a-Fault-Tolerant-LAMP-based-Service
 
-You're very critical, Rob.
+Original CloudFormations Template: https://s3.amazonaws.com/cloudformation-templates-us-east-1/Drupal_Multi_AZ.template
+
+test
