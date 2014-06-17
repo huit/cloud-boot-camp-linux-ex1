@@ -1,6 +1,7 @@
 Cloud-Boot-Camp-exercise 1 README File
 =========================
 
+<<<<<<< HEAD
 Exercise 1 Requirements: https://github.com/huit/cloud-boot-camp/wiki/Deploying-a-Fault-Tolerant-LAMP-based-Service
 
 Original CloudFormations Template: https://s3.amazonaws.com/cloudformation-templates-us-east-1/Drupal_Multi_AZ.template
@@ -59,4 +60,13 @@ Demonstrate that the site remains up and responsive to the following failures:
    - aws cloudformation update-stack --capabilities CAPABILITY_IAM --stack-name HPACDrupalStackWebInfrastructure --template-url https://s3.amazonaws.com/hpacdrupalstack-s3bucket-12npg1o22mj36/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
 
  * Failure of ALL object in a given availability zone.
+=======
+Exercise 1:
+
+  - Location of Requirements:  https://github.com/huit/cloud-boot-camp/wiki/Deploying-a-Fault-Tolerant-LAMP-based-Service
+  - Base CloudFormation Template File: https://s3.amazonaws.com/cloudformation-templates-us-east-1/Drupal_Multi_AZ.template
+
+
+
+>>>>>>> 13ceefe1c0fe177f08d27b4b5e275d0fa18e5e44
 
