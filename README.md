@@ -18,8 +18,7 @@ Macintosh Instructions:
 
 2.  Type the following command:
 
-aws cloudformation create-stack \
---capabilities CAPABILITY_IAM --stack-name HPACDrupalStackWebInfrastructure --template-url https://s3.amazonaws.com/hpacdrupalstack-s3bucket-12npg1o22mj36/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
+aws cloudformation create-stack --capabilities CAPABILITY_IAM --stack-name HPACDrupalStackWebInfrastructure --template-url https://s3.amazonaws.com/hpacdrupalstack-s3bucket-12npg1o22mj36/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
 
 NOTE: aws command above is using the cloudformation template located in an S3 bucket on Amazon at the location specified.  All future updates to the template should be uploaded to this location and overwritten to the file.
 
