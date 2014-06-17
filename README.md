@@ -34,8 +34,7 @@ NOTE: aws command above is using the cloudformation template located in an S3 bu
    - 1 Web Server Instance in the us-east-1a Availability Zone
    - 1 RDS Instance PRIMARY us-east-1d
    - 1 RDS Instance SECONDARY us-east-1a
-   - 
-
+   
 Demonstration of Resiliency
 
 Demonstrate that the site remains up and responsive to the following failures:
