@@ -54,7 +54,8 @@ Demonstrate that the site remains up and responsive to the following failures:
  * Failure of the master RDS instance
  * Failure of an individual instance
    - Demonstrate Rebuild of Instance using following command:
-   - Change Template
+   - Change Template 
+      - What if it is 1, what if it is 3?
    - aws cloudformation update-stack --capabilities CAPABILITY_IAM --stack-name HPACDrupalStackWebInfrastructure --template-url https://s3.amazonaws.com/hpacdrupalstack-s3bucket-12npg1o22mj36/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
 
  * Failure of ALL object in a given availability zone.
