@@ -36,7 +36,7 @@ NOTE: aws command above is using the cloudformation template located in an S3 bu
    - 1 RDS Instance SECONDARY us-east-1a
    - 
 
-### Demonstration of Resiliency
+Demonstration of Resiliency
 
 Demonstrate that the site remains up and responsive to the following failures:
  * Failure of the master RDS instance
