@@ -39,6 +39,7 @@ Demonstration of Exercise 1
 
 1. Show documentation of original CloudFormation Template and Changes
 2. Show S3 Bucket that contains Updated CloudFormatin Template
+   - hpacdrupalstack-s3bucket-12npg1o22mj36
 3. Show Single Command to initiate HPAC Drupal Infrastructure Build
 
 Demonstration of Resiliency
