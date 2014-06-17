@@ -12,7 +12,7 @@ Tools Needed: https://github.com/huit/cloud-boot-camp#tools
 AWS Command to Run:
 =========================
 
-Macintosh:
+Macintosh Instructions:
 
 1.  Launch the Terminal Window on your Macintosh
 
@@ -28,7 +28,10 @@ NOTE: aws command above is using the cloudformation template located in an S3 bu
 
 5. Enter your Username, Password and MFA Token.
 
-6. The Drupal_Multi_AZ.template CloudFormation template will create the following instances:
+HPAC Drupal Infrastructure Components:
+=========================
+
+The Drupal_Multi_AZ.template CloudFormation template will create the following instances:
 
    - 1 Load Balancer
    - 2 Web Server Instances in the us-east-1d Availability Zone
@@ -37,6 +40,7 @@ NOTE: aws command above is using the cloudformation template located in an S3 bu
    - 1 RDS Instance SECONDARY us-east-1a
    
 Demonstration of Exercise 1
+=========================
 
 1. Show documentation of original CloudFormation Template and Changes
 2. Show S3 Bucket that contains Updated CloudFormatin Template
@@ -44,6 +48,7 @@ Demonstration of Exercise 1
 3. Show Single Command to initiate HPAC Drupal Infrastructure Build
 
 Demonstration of Resiliency
+=========================
 
 Demonstrate that the site remains up and responsive to the following failures:
  * Failure of the master RDS instance
