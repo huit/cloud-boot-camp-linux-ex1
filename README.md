@@ -76,3 +76,13 @@ Exercise 1:
 =======
 Exercise 1 
 >>>>>>> 0373d442be844f5f8aead4c936aa43cb92f2d6b3
+
+Next Steps for Exercise 1
+
+- Logging - Splunk
+- Monitoring - Nagios
+- Add an Admin Node
+- Clean-up
+- Route 53
+- Import Data for Drupal Website
+- Fix the name of instances
