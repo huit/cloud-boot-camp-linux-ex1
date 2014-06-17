@@ -1,5 +1,6 @@
 Cloud-Boot-Camp-exercise 1 README File
 =========================
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 Exercise 1 Requirements: https://github.com/huit/cloud-boot-camp/wiki/Deploying-a-Fault-Tolerant-LAMP-based-Service
@@ -75,3 +76,6 @@ Exercise 1:
 
 >>>>>>> 13ceefe1c0fe177f08d27b4b5e275d0fa18e5e44
 
+=======
+Exercise 1 
+>>>>>>> 0373d442be844f5f8aead4c936aa43cb92f2d6b3
