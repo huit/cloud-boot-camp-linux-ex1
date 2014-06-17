@@ -11,4 +11,27 @@ Tools Needed: https://github.com/huit/cloud-boot-camp#tools
 
 AWS Command to Run:  
 
-aws cloudformation create-stack --capabilities CAPABILITY_IAM --stack-name HPACDrupalStack --template-body file://////Users/spm888/git/cloud-boot-camp-linux-ex1/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
+Macintosh:
+
+1.  Launch the Terminal Window on your Macintosh
+
+2.  Type the following command:
+
+aws cloudformation create-stack --capabilities CAPABILITY_IAM --stack-name HPACDrupalStack1 --template-url https://s3.amazonaws.com/hpacdrupalstack-s3bucket-12npg1o22mj36/Drupal_Multi_AZ.template --parameters ParameterKey=KeyName,ParameterValue=HPACDrupalKeyPair
+
+NOTE: aws command above is using the cloudformation template located in an S3 bucket on Amazon at the location specified.  All future updates to the template should be uploaded to this location and overwritten to the file.
+
+3. Login to https://cloudhacks.signin.aws.amazon.com/console
+
+4. Open the AWS Console
+
+5. Enter your Username, Password and MFA Token.
+
+6. The Drupal_Multi_AZ.template CloudFormation template will create the following instances:
+
+   - 1 Load Balancer
+   - 2 Web Server Instances in the us-east-1d Availability Zone
+   - 1 Web Server Instance in the us-east-1a Availability Zone
+   - 1 RDS Instance PRIMARY us-east-1d
+   - 1 RDS Instance SECONDARY us-east-1a
+
