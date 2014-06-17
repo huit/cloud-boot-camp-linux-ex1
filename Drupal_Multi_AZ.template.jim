@@ -116,7 +116,7 @@
       "Default": "3",
       "Description" : "The initial number of WebServer instances",
       "Type": "Number",
-      "MinValue": "2",
+      "MinValue": "3",
       "MaxValue": "5",
       "ConstraintDescription" : "must be between 1 and 5 EC2 instances."
     },
@@ -215,7 +215,7 @@
         "Comment" : "Configure the Load Balancer with a simple health check and cookie-based stickiness"
       },
       "Properties" : {
-        "AvailabilityZones" : { "Fn::GetAZs" : "" },
+        "AvailabilityZones" : [ "us-east-1a","us-east-1d" ],
         "LBCookieStickinessPolicy" : [ {
           "PolicyName" : "CookieBasedPolicy",
           "CookieExpirationPeriod" : "30"
@@ -239,9 +239,9 @@
     "WebServerGroup" : {
       "Type" : "AWS::AutoScaling::AutoScalingGroup",
       "Properties" : {
-        "AvailabilityZones" : { "Fn::GetAZs" : "" },
+        "AvailabilityZones" : [ "us-east-1a","us-east-1d"],
         "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
-        "MinSize" : "1",
+        "MinSize" : "3",
         "MaxSize" : "5",
         "DesiredCapacity" : { "Ref" : "WebServerCapacity" },
         "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ],
