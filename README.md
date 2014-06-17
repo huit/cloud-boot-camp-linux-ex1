@@ -1,5 +1,6 @@
 Cloud-Boot-Camp-exercise 1 README File
 =========================
+<<<<<<< HEAD
 
 Exercise 1 Requirements: https://github.com/huit/cloud-boot-camp/wiki/Deploying-a-Fault-Tolerant-LAMP-based-Service
 
@@ -60,3 +61,6 @@ Demonstrate that the site remains up and responsive to the following failures:
 
  * Failure of ALL object in a given availability zone.
 
+=======
+Exercise 1 
+>>>>>>> 0373d442be844f5f8aead4c936aa43cb92f2d6b3
