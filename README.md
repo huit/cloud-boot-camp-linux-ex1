@@ -9,7 +9,8 @@ Exercise 1 Description: This exercise models a LAMP based website for which most
 
 Tools Needed: https://github.com/huit/cloud-boot-camp#tools
 
-AWS Command to Run:  
+AWS Command to Run:
+=========================
 
 Macintosh:
 
