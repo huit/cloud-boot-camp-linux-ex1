@@ -80,3 +80,5 @@ Next Steps for Exercise 1
 - Import Data for Drupal Website
 - Fix the name of instances
 
+
+Test from the GUI - Brian
