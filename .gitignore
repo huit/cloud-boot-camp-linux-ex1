@@ -1,0 +1,6 @@
+# ignore VI temp files
+*.swp
+*.SWP
+
+# ignore emacs temp files
+*~
